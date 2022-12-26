@@ -1,0 +1,12 @@
+env: "develop"
+
+appName: "nestjs-app"
+
+port: 80
+targetPort: 3000
+
+namespace: "nestjs-app-develop"
+
+image:
+  name: jabronious/nestjs-app
+  tag: develop

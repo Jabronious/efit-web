@@ -1,0 +1,7 @@
+{
+	"recommendations": [
+		"firsttris.vscode-jest-runner",
+		"esbenp.prettier-vscode",
+		"ms-kubernetes-tools.vscode-kubernetes-tools"
+	]
+}
