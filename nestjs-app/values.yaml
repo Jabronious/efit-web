@@ -1,12 +1,12 @@
 env: "develop"
 
-appName: "nestjs-app"
+appName: "efit-backend"
 
 port: 80
 targetPort: 3000
 
-namespace: "nestjs-app-develop"
+namespace: "efit-backend-develop"
 
 image:
-  name: jabronious/nestjs-app
+  name: jabronious/efit-backend
   tag: develop
