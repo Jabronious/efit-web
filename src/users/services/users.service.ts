@@ -15,15 +15,13 @@ export class UsersService {
   }
 
   async update(updateUserDto: UpdateUserDto): Promise<User> {
-    return this.userModel.findOneAndUpdate(
-      { discordId: updateUserDto.id },
-      updateUserDto,
-      { new: true },
-    );
+    return this.userModel
+      .findOneAndUpdate({ id: updateUserDto.id }, updateUserDto, { new: true })
+      .lean();
   }
 
   async findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
+    return this.userModel.find().lean().exec();
   }
 
   async findById(id: string): Promise<User | void> {
@@ -31,8 +29,9 @@ export class UsersService {
   }
 
   async findByDiscordId(discord_id: string): Promise<User | void> {
-    const user = this.userModel
-      .findOne({ discord_id: discord_id })
+    const user = await this.userModel
+      .findOne({ id: discord_id })
+      .lean()
       .catch(() => {});
     return user;
   }

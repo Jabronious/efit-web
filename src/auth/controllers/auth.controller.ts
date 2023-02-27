@@ -1,7 +1,14 @@
-import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import {
+  Controller,
+  Get,
+  Render,
+  Req,
+  Res,
+  Session,
+  UseGuards,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
-import { User } from '../../users/schemas/users.schema';
+import { DiscordGuard } from '../../shared/guards/discord.guard';
 import { AuthService } from '../services/auth.service';
 
 @Controller('auth')
@@ -9,25 +16,31 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Get('discord')
-  @UseGuards(AuthGuard('discord'))
+  @UseGuards(DiscordGuard)
   async getUserFromDiscordLogin(@Req() req: Request): Promise<any> {
     return req.user;
   }
 
   @Get('redirect')
-  @UseGuards(AuthGuard('discord'))
+  @UseGuards(DiscordGuard)
   async redirect(@Req() req: Request, @Res() res: Response) {
-    const { accessToken } = await this.authService.login(req.user as User);
-
-    res.cookie('jwt', accessToken);
     res.redirect('/connect');
   }
 
+  @Get()
+  @Render('auth/index')
+  async loginConnect(@Req() req: Request, @Res() _res: Response) {}
+
   @Get('logout')
-  @UseGuards(AuthGuard('jwt'))
-  logout(@Req() req: Request) {
-    req.logOut((err) => {
+  async logout(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Session() session: Record<string, any>,
+  ) {
+    req.logout((err) => {
       console.log(err);
     });
+
+    res.redirect('/auth');
   }
 }

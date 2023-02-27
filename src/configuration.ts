@@ -13,4 +13,5 @@ export const configs = cleanEnv(process.env, {
     default: 'development',
   }),
   JWT_SECRET: str({ default: 'change-me' }),
+  SESSION_SECRET: str({ default: 'change-me' }),
 });

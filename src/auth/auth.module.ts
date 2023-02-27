@@ -5,7 +5,7 @@ import { DiscordStrategy } from '../strategies/discord.strategy';
 import { AuthController } from './controllers/auth.controller';
 import { UsersModule } from '../users/users.module';
 import { configs } from '../configuration';
-import { JwtStrategy } from '../strategies/jwt.strategy';
+import { SerializerService } from './services/serializer.service';
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { JwtStrategy } from '../strategies/jwt.strategy';
       signOptions: { expiresIn: '3600s' },
     }),
   ],
-  providers: [AuthService, DiscordStrategy, JwtStrategy],
+  providers: [AuthService, DiscordStrategy, SerializerService],
   controllers: [AuthController],
 })
 export class AuthModule {}

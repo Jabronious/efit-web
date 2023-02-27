@@ -30,15 +30,4 @@ export class AuthService {
       discriminator: discriminator,
     });
   }
-
-  async login(user: User): Promise<AuthResponse> {
-    const payload: JwtPayload = {
-      username: user.username,
-      sub: user.discordId,
-      discriminator: user.discriminator,
-    };
-    return {
-      accessToken: this.jwtService.sign(payload),
-    };
-  }
 }

@@ -1,0 +1,33 @@
+<div id="connect-container">
+	<head>
+		<link rel='stylesheet' type='text/css' href='css/connect.css' />
+		<script src='js/connect.js'></script>
+	</head>
+	<header id="connect-header">
+		<h1>Connect ESPN Fantasy Baseball</h1>
+		<div>
+			<i class="fab fa-discord" style="margin-right:20px; font-size:36px;"></i>
+			<i class="fa-solid fa-arrow-right-arrow-left" style="font-size:24px;"></i>
+			<i class="fas fa-baseball-ball" style="margin-left:20px; font-size:36px;"></i>
+		</div>
+
+	</header>
+	<form action="/connect" method="POST">
+		<div class='input-group'>
+			<label class='label' for='swid'>SWID Cookie:</label>
+			<input class='input' type='text' id='swid' name='swid' placeholder='Enter SWID Cookie' {{#if
+				(userCookiePresent user)}} value="*****" readonly {{/if}} />
+		</div>
+		<div class='input-group'>
+			<label class='label' for='espn_s2'>ESPN_S2 Cookie:</label>
+			<input class='input' type='text' id='espn-s2' name='espn_s2' placeholder='Enter ESPN_S2 Cookie' {{#if
+				(userCookiePresent user)}} value="*****" readonly {{/if}} />
+		</div>
+		<div class='input-group'>
+			<a href='#' {{#if (userCookiePresent user)}} style="display: visible;" {{/if}}
+				class="replace-button">Replace</a>
+			<button type='submit' {{#if (userCookiePresent user)}} style="display: none;" {{/if}}>Submit</button>
+			<a href='#' {{#if (userCookiePresent user)}} style="display: none;" {{/if}} class="cancel-button">Cancel</a>
+		</div>
+	</form>
+</div>

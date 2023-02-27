@@ -6,19 +6,19 @@ export type UserDocument = HydratedDocument<User>;
 @Schema()
 export class User {
   @Prop({ required: true })
-  discordId: string;
-
-  @Prop({ required: true })
   username: string;
 
   @Prop({ required: true })
   discriminator: string;
 
   @Prop({ required: false })
-  espn_s2: string;
+  espn_s2?: string;
 
   @Prop({ required: false })
-  swid: string;
+  swid?: string;
+
+  @Prop({ required: false })
+  id?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

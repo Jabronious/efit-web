@@ -1,0 +1,15 @@
+<head>
+	<link rel='stylesheet' type='text/css' href='css/navbar.css' />
+</head>
+
+<nav>
+	<div class="nav-left">
+		<h3 class="title">E.F.I.T</h3>
+	</div>
+	<div class="nav-right">
+		{{#if user}}
+		<p class="username">Welcome, {{ user.username }}</p>
+		<a href="/auth/logout" class="logout-button">Logout</a>
+		{{/if}}
+	</div>
+</nav>
