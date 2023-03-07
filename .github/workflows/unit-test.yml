@@ -7,10 +7,6 @@ on:
   pull_request:
     branches: [ main, staging, develop ]
 
-env:
-  FBB_BOT_SECRET: EMPTY,
-  FBB_BOT_CLIENT_ID: EMPTY,
-  FBB_BOT_TOKEN: EMPTY,
 jobs:
   build:
 
@@ -31,4 +27,9 @@ jobs:
     - run: npm install --global yarn
     - run: yarn install
 #     - run: npm run build --if-present
-    - run: yarn test:cov
+    - name: "Say Hello Mona it's Monday"
+      run: yarn test:cov
+      env:
+        FBB_BOT_SECRET: SECRET
+        FBB_BOT_CLIENT_ID: CLIENT_ID
+        FBB_BOT_TOKEN: TOKEN
