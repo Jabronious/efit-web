@@ -5,7 +5,6 @@ import { User, UserDocument } from '../schemas/users.schema';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UsersService } from './users.service';
-import { MockUserModel } from '../../../test/mocks/user.model.mock';
 import { v4 as uuidv4 } from 'uuid';
 
 describe('UsersService', () => {
