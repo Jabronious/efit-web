@@ -3,18 +3,10 @@ import { ConnectController } from './connect.controller';
 import { UsersService } from '../../users/services/users.service';
 import { ConnectService } from '../services/connect.service';
 import { Request, Response } from 'express';
-import { User } from '../../users/schemas/users.schema';
-import { UsersModule } from '../../users/users.module';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 describe('ConnectController', () => {
   let connectController: ConnectController;
   let connectService: ConnectService;
-  const createUserDto: CreateUserDto = {
-    id: '12345',
-    username: 'string',
-    discriminator: 'string',
-  };
   const mockUser = {
     username: 'string',
     discriminator: 'string',

@@ -1,16 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { Profile } from 'passport-discord';
-import { AuthResponse, JwtPayload } from '../../shared/types/auth';
-import { User } from '../../users/schemas/users.schema';
 import { UsersService } from '../../users/services/users.service';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly usersService: UsersService,
-    private readonly jwtService: JwtService,
-  ) {}
+  constructor(private readonly usersService: UsersService) {}
 
   async validateUser(profile: Profile): Promise<any> {
     const discordId = profile.id;
