@@ -1,0 +1,7 @@
+env: "develop"
+
+image:
+  name: jabronious/efit-backend
+  tag: latest
+
+secretEnv: _DEV

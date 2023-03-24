@@ -5,8 +5,10 @@ appName: "efit-backend"
 port: 80
 targetPort: 3000
 
-namespace: "efit-backend-develop"
+callbackUrl: http://localhost:3000/auth/redirect
 
 image:
   name: jabronious/efit-backend
   tag: develop
+
+secretEnv:
