@@ -2,13 +2,16 @@ env: "develop"
 
 appName: "efit-backend"
 
-port: 80
-targetPort: 3000
-
 callbackUrl: http://localhost:3000/auth/redirect
 
 image:
   name: jabronious/efit-backend
   tag: develop
+  pullPolicy: Never
+
+ports:
+  port: 80
+  targetPort: 3000
+  name: http
 
 secretEnv:

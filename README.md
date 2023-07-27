@@ -47,7 +47,7 @@ $  helm uninstall efit-backend-release
 ## Running the app with minikube
 
 ```bash
-$ eval $(minikube docker-env)
+$ eval $(minikube -p minikube docker-env)
 
 $ docker build -t <image-name>:<tag> .
 

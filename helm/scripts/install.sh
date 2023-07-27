@@ -10,6 +10,7 @@ FILE_NAME="secret-plans.json"
 op document get "CRED_FILE" --output=./$FILE_NAME
 
 helm repo add 1password https://1password.github.io/connect-helm-charts
+helm repo update
 
 helm upgrade --install connect 1password/connect \
 	--set-file connect.credentials=./$FILE_NAME \

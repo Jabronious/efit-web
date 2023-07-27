@@ -16,10 +16,25 @@ spec:
         app: {{ .Values.appName }}
     spec:
       containers:
-        - name: appcontainer
+        - name: {{ .Values.appName }}
           image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
           ports:
-            - containerPort: {{ .Values.targetPort }}
+              - name: {{ .Values.ports.name }}
+                containerPort: {{ .Values.ports.targetPort }}
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: {{ .Values.ports.name }}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: {{ .Values.ports.name }}
+            initialDelaySeconds: 300
+            periodSeconds: 60
           env:
             - name: COSMOS_CONNECTION_STRING
               valueFrom:
@@ -43,7 +58,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.appName }}-secret
                   key: SESSION_SECRET			
-          imagePullPolicy: Never
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
             requests:
               memory: "16Mi"

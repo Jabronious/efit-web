@@ -6,11 +6,11 @@ metadata:
   labels:
     app: {{ .Values.appName }}
 spec:
+  type: LoadBalancer
   ports:
-  - port: 80
+  - port: {{ .Values.ports.port }}
     protocol: TCP
-    name: {{ .Values.appName }}
-    targetPort: {{ .Values.targetPort }}
+    name: {{ .Values.ports.name }}
+    targetPort: {{ .Values.ports.targetPort }}
   selector:
     app: {{ .Values.appName }}
-  type: LoadBalancer
