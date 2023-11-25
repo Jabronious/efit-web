@@ -103,7 +103,3 @@ resource "helm_release" "ingress" {
     value = "/healthz"
   }
 }
-
-
-helm install test-release ingress-nginx/ingress-nginx \
-	
