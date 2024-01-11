@@ -7,6 +7,7 @@ export const configs = cleanEnv(process.env, {
     devDefault: 'http://localhost:3000/auth/redirect',
   }),
   COSMOS_CONNECTION_STRING: str({ devDefault: 'change-me' }),
+  //   COSMOS_CONNECTION_STRING: str({ devDefault: 'mongodb://localhost:27017' }),
   NODE_ENV: str({
     choices: ['development', 'test', 'production', 'staging'],
     devDefault: 'development',

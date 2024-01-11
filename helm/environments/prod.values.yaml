@@ -1,0 +1,8 @@
+env: "prod"
+
+image:
+  name: jabronious/efit-backend
+  tag: latest
+  pullPolicy: Always
+
+secretEnv: _PROD
