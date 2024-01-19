@@ -1,8 +1,8 @@
-env: "develop"
+env: 'develop'
 
 image:
   name: jabronious/efit-backend
-  tag: latest
+  tag: develop
   pullPolicy: Always
 
 secretEnv: _DEV

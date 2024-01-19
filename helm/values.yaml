@@ -1,6 +1,6 @@
-env: "develop"
+env: 'develop'
 
-appName: "efit-backend"
+appName: 'efit-backend'
 
 callbackUrl: http://localhost:3000/auth/redirect
 
@@ -13,5 +13,7 @@ ports:
   port: 80
   targetPort: 3000
   name: http
+
+deployService: true
 
 secretEnv:
