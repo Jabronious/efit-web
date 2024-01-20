@@ -20,4 +20,4 @@ helm upgrade --install connect 1password/connect \
 
 rm ./$FILE_NAME
 
-helm upgrade --install $RELEASE_NAME helm 
+helm upgrade --install $RELEASE_NAME helm
