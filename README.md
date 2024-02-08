@@ -5,7 +5,7 @@ Base repo to initialize new project using NestJS
 ## Installation
 
 ```bash
-$ yarn install
+yarn install
 ```
 
 ## Running the app
@@ -27,7 +27,7 @@ $ yarn start:prod
 
 ```bash
 $ sh helm/scripts/install.sh
-# NAME: efit-backend-release
+# NAME: efit-web-release
 # LAST DEPLOYED: Mon Mar 13 23:32:08 2023
 # NAMESPACE: default
 # STATUS: deployed
@@ -38,22 +38,22 @@ $ sh helm/scripts/install.sh
 # Uninstall
 
 ```bash
-$  helm uninstall efit-backend-release
-# release "efit-backend-release" uninstalled
-$  helm uninstall efit-backend-release
+$  helm uninstall efit-web-release
+# release "efit-web-release" uninstalled
+$  helm uninstall connect
 # release "connect" uninstalled
 ```
 
 ## Running the app with minikube
 
 ```bash
-$ eval $(minikube -p minikube docker-env)
+eval $(minikube -p minikube docker-env)
 
-$ docker build -t <image-name>:<tag> .
+docker build -t <image-name>:<tag> .
 
-$ sh helm/scripts/install.sh
+sh helm/scripts/install.sh
 
-$ minikube service efit-backend -n efit-backend-develop
+minikube service efit-web -n efit-web-develop
 ```
 
 ## Test

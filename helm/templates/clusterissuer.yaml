@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: {{ .Values.letsencrypt.env }}
+  namespace: {{ .Values.appName }}-{{.Values.env}}
+spec:
+  acme:
+    server: {{ .Values.letsencrypt.server}}
+    email: jarrodmerryman@gmail.com
+    privateKeySecretRef:
+      name: {{ .Values.letsencrypt.env }}
+    solvers:
+      - dns01:
+          azureDNS:
+            subscriptionID: 8b956240-12c7-4e8e-b328-958fb0a78713
+            resourceGroupName: {{ .Values.appName }}-{{ .Values.env }}-rg
+            hostedZoneName: {{ .Values.domainName }}
+            environment: AzurePublicCloud

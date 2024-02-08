@@ -23,7 +23,7 @@
   "editor.insertSpaces": false,
   "editor.detectIndentation": false,
   "yaml.schemas": {
-    "https://json.schemastore.org/chart.json": "file:///Users/jarrodmerryman/Desktop/efit-backend/nestjs-app/templates/deployment.yaml",
-    "https://json.schemastore.org/helmfile.json": "file:///Users/jarrodmerryman/Desktop/efit-backend/nestjs-app/values.yaml"
+    "https://json.schemastore.org/chart.json": "file:///Users/jarrodmerryman/Desktop/efit-web/helm/templates/deployment.yaml",
+    "https://json.schemastore.org/helmfile.json": "file:///Users/jarrodmerryman/Desktop/efit-web/helm/values.yaml"
   }
 }

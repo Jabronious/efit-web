@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: www
+  namespace: {{ .Values.appName }}-{{.Values.env }}
+spec:
+  secretName: www-tls
+  privateKey:
+    rotationPolicy: Always
+  commonName: www.{{ .Values.subdomain }}{{ .Values.domainName }}
+  dnsNames:
+    - www.{{ .Values.subdomain }}{{ .Values.domainName }}
+  usages:
+    - digital signature
+    - key encipherment
+    - server auth
+  issuerRef:
+    name: {{ .Values.letsencrypt.env }}
+    kind: ClusterIssuer
