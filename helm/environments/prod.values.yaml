@@ -1,8 +1,12 @@
-env: "prod"
+env: prod
 
 image:
-  name: jabronious/efit-backend
+  name: jabronious/efit-web
   tag: latest
   pullPolicy: Always
 
 secretEnv: _PROD
+
+letsencrypt:
+  server: https://acme-v02.api.letsencrypt.org/directory
+  env: letsencrypt-prod

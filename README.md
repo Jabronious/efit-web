@@ -5,7 +5,7 @@ Base repo to initialize new project using NestJS
 ## Installation
 
 ```bash
-$ yarn install
+yarn install
 ```
 
 ## Running the app
@@ -21,39 +21,38 @@ $ yarn start:dev
 $ yarn start:prod
 ```
 
-## Running the app with helm
+## Deploying service from local to AKS
+
+Requires:
+
+- k8s cluster is running (specifically AKS) and it needs cert-manager and 1pass helm charts installed
 
 # Install
 
 ```bash
-$ sh helm/scripts/install.sh
-# NAME: efit-backend-release
-# LAST DEPLOYED: Mon Mar 13 23:32:08 2023
-# NAMESPACE: default
-# STATUS: deployed
-# REVISION: 1
-# TEST SUITE: None
+$ helm upgrade -f ../helm/environments/develop.values.yaml \
+  --set azureSubId=<AZURE_SUB> \
+  --install efit-web-release-$(uuidgen) \
+  ../helm
 ```
 
 # Uninstall
 
 ```bash
-$  helm uninstall efit-backend-release
-# release "efit-backend-release" uninstalled
-$  helm uninstall efit-backend-release
-# release "connect" uninstalled
+$  helm uninstall efit-web-release-<UUID_FROM_WHEN_RELEASE_WAS_MADE>
+# release "efit-web-release" uninstalled
 ```
 
 ## Running the app with minikube
 
 ```bash
-$ eval $(minikube -p minikube docker-env)
+eval $(minikube -p minikube docker-env)
 
-$ docker build -t <image-name>:<tag> .
+docker build -t <image-name>:<tag> .
 
-$ sh helm/scripts/install.sh
+sh helm/scripts/install.sh
 
-$ minikube service efit-backend -n efit-backend-develop
+minikube service efit-web -n efit-web-develop
 ```
 
 ## Test

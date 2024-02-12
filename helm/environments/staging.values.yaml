@@ -1,10 +1,10 @@
-env: develop
+env: staging
 
 image:
   name: jabronious/efit-web
-  tag: develop
+  tag: staging
   pullPolicy: Always
 
 secretEnv: _DEV
 
-subdomain: develop.
+subdomain: staging.

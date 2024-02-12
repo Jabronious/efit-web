@@ -21,10 +21,13 @@ spec:
           ports:
               - name: {{ .Values.ports.name }}
                 containerPort: {{ .Values.ports.targetPort }}
+              - name: live-ready-port
+                containerPort: {{ .Values.ports.targetPort }}
+                hostPort: {{ .Values.ports.targetPort }}
           readinessProbe:
             httpGet:
               path: /readyz
-              port: {{ .Values.ports.name }}
+              port: {{ .Values.ports.targetPort }}
             initialDelaySeconds: 15
             periodSeconds: 10
             successThreshold: 1
@@ -32,7 +35,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /livez
-              port: {{ .Values.ports.name }}
+              port: live-ready-port
             initialDelaySeconds: 300
             periodSeconds: 60
           env:
@@ -52,12 +55,16 @@ spec:
                   name: fbb-bot-secret
                   key: credential
             - name: OAUTH_CALLBACK_URL
-              value: {{ .Values.callbackUrl}}
+              value: http://www.{{ .Values.subdomain }}{{ .Values.domainName }}{{ .Values.callbackEndpoint }}
             - name: SESSION_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.appName }}-secret
-                  key: SESSION_SECRET			
+                  key: SESSION_SECRET
+            - name: TLS_CERT
+              value: /etc/tls/tls.crt
+            - name: TLS_KEY
+              value: /etc/tls/tls.key
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
             requests:
@@ -66,3 +73,11 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "100m"
+          volumeMounts:
+            - name: tls
+              mountPath: /etc/tls
+              readOnly: true
+      volumes:
+      - name: tls
+        secret:
+          secretName: www-tls

@@ -1,5 +1,6 @@
 variable "prefix" {
   description = "Descriptive name for your resources"
+  default     = "efit-web"
 }
 
 variable "location" {
@@ -12,7 +13,12 @@ variable "location" {
 }
 
 variable "environment" {
-  default = "dev"
+  default = "develop"
+  validation {
+    condition     = contains(["develop", "staging", "prod"], var.environment)
+    error_message = "Value must be develop, staging, or prod"
+
+  }
 }
 
 variable "tags" {
@@ -22,15 +28,16 @@ variable "tags" {
   }
 }
 
-variable "domain_name" {
-  description = "domain name for app"
-  default     = "efit"
+variable "domain_label" {
+  default = "efit-web.site"
 }
 
-variable "cert_manager_ns" {
-  default = "cert-manager"
-}
+variable "subdomain_list" {
+  type = map(string)
 
-variable "namespace" {
-  default = "efit-backend"
+  default = {
+    prod    = "www"
+    develop = "www.develop"
+    staging = "www.staging"
+  }
 }

@@ -1,19 +1,28 @@
 env: 'develop'
 
-appName: 'efit-backend'
+appName: efit-web
 
-callbackUrl: http://localhost:3000/auth/redirect
+callbackEndpoint: /auth/redirect
+
+domainName: efit-web.site
 
 image:
-  name: jabronious/efit-backend
+  name: jabronious/efit-web
   tag: develop
   pullPolicy: Never
 
 ports:
-  port: 80
+  port: 443
   targetPort: 3000
+  # targetPort: 8443
   name: http
 
 deployService: true
+createNamespace: false
 
 secretEnv:
+subdomain:
+
+letsencrypt:
+  server: https://acme-staging-v02.api.letsencrypt.org/directory
+  env: letsencrypt-staging
