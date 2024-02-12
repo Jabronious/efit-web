@@ -12,7 +12,7 @@ spec:
     solvers:
       - dns01:
           azureDNS:
-            subscriptionID: 8b956240-12c7-4e8e-b328-958fb0a78713
+            subscriptionID: {{ .Values.azureSubId }}
             resourceGroupName: {{ .Values.appName }}-{{ .Values.env }}-rg
             hostedZoneName: {{ .Values.domainName }}
             environment: AzurePublicCloud
