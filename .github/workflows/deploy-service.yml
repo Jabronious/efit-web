@@ -59,7 +59,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run OP Helm NEEDS FIXING
+      - name: Deploy Service via Helm
         run: |
           helm upgrade -f ./helm/environments/${{ github.ref_name }}.values.yaml \
           --set azureSubId=${{ secrets.ARM_SUBSCRIPTION_ID }} \
