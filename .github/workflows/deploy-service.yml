@@ -33,7 +33,7 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform -chdir=./terraform apply -auto-approve -no-color -input=false -var environment=${{ github.base_ref }}
+        run: terraform -chdir=./terraform apply -auto-approve -no-color -input=false -var environment=${{ github.ref_name }}
 
   build:
     name: 'Deploy Service to AKS'
@@ -61,7 +61,7 @@ jobs:
 
       - name: Run OP Helm NEEDS FIXING
         run: |
-          helm upgrade -f ../helm/environments/${{ github.base_ref }}.values.yaml \
+          helm upgrade -f ../helm/environments/${{ github.ref_name }}.values.yaml \
           --set azureSubId=${{ secrets.ARM_SUBSCRIPTION_ID }} \
-          --install efit-web-release-${{ github.base_ref }} \
+          --install efit-web-release-${{ github.ref_name }} \
           ../helm
