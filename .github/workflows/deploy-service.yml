@@ -1,7 +1,7 @@
 name: Deploy Service
 
 on:
-  pull_request:
+  push:
     branches: [main, staging, develop]
   workflow_dispatch:
 
