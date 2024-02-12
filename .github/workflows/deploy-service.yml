@@ -61,7 +61,7 @@ jobs:
 
       - name: Run OP Helm NEEDS FIXING
         run: |
-          helm upgrade -f ../helm/environments/${{ github.ref_name }}.values.yaml \
+          helm upgrade -f ./helm/environments/${{ github.ref_name }}.values.yaml \
           --set azureSubId=${{ secrets.ARM_SUBSCRIPTION_ID }} \
           --install efit-web-release-${{ github.ref_name }} \
-          ../helm
+          ./helm
