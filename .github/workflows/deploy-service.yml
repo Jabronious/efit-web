@@ -15,7 +15,6 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
-      ENVIRONMENT: ${{ github.base_ref == 'main' && 'prod' || github.base_ref }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,14 +33,12 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform -chdir=./terraform apply -auto-approve -no-color -input=false -var environment=$ENVIRONMENT
+        run: terraform -chdir=./terraform apply -auto-approve -no-color -input=false -var environment=${{ github.base_ref }}
 
   build:
     name: 'Deploy Service to AKS'
     needs: terraform
     runs-on: ubuntu-latest
-    env:
-      ENVIRONMENT: ${{ github.base_ref == 'main' && 'prod' || github.base_ref }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -64,7 +61,7 @@ jobs:
 
       - name: Run OP Helm NEEDS FIXING
         run: |
-          helm upgrade -f ../helm/environments/$ENVIRONMENT.values.yaml \
+          helm upgrade -f ../helm/environments/${{ github.base_ref }}.values.yaml \
           --set azureSubId=${{ secrets.ARM_SUBSCRIPTION_ID }} \
-          --install efit-web-release-$ENVIRONMENT \
+          --install efit-web-release-${{ github.base_ref }} \
           ../helm
