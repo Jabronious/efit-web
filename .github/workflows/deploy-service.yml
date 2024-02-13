@@ -84,7 +84,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm install --global yarn
+
+      - name: Instal Yarn
+        run: npm install --global yarn
+
+      - name: Install Packages
+        run: yarn install
 
       - name: Yarn Build
         run: yarn build
