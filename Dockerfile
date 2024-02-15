@@ -12,6 +12,8 @@ WORKDIR /src
 ARG node_env='local'
 ENV NODE_ENV $node_env
 COPY --from=pre-build /src/dist /src/dist
+COPY --from=pre-build /src/views /src/views
+COPY --from=pre-build /src/client /src/client
 COPY --from=pre-build /src/node_modules /src/node_modules
 EXPOSE 3000
 

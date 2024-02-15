@@ -55,6 +55,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(configs.PORT);
-  console.log(`Server is running on ${app.getUrl()}`);
+  console.log(`Server is running on ${await app.getUrl()}`);
 }
 bootstrap();
