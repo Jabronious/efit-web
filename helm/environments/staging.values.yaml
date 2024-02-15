@@ -8,3 +8,6 @@ image:
 secretEnv: _DEV
 
 subdomain: staging.
+
+ports:
+  scheme: HTTPS

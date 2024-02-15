@@ -16,6 +16,7 @@ ports:
   targetPort: 3000
   # targetPort: 8443
   name: http
+  scheme: HTTP
 
 deployService: true
 createNamespace: false
