@@ -54,7 +54,7 @@ spec:
                   name: fbb-bot-secret
                   key: credential
             - name: OAUTH_CALLBACK_URL
-              value: http://www.{{ .Values.subdomain }}{{ .Values.domainName }}{{ .Values.callbackEndpoint }}
+              value: https://www.{{ .Values.subdomain }}{{ .Values.domainName }}{{ .Values.callbackEndpoint }}
             - name: SESSION_SECRET
               valueFrom:
                 secretKeyRef:
