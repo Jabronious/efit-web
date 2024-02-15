@@ -23,7 +23,7 @@ spec:
                 containerPort: {{ .Values.ports.targetPort }}
           readinessProbe:
             httpGet:
-			  scheme: {{ .Values.ports.scheme }}
+              scheme: {{ .Values.ports.scheme }}
               path: /readyz
               port: {{ .Values.ports.targetPort }}
             initialDelaySeconds: 15
@@ -32,7 +32,7 @@ spec:
             failureThreshold: 1
           livenessProbe:
             httpGet:
-			  scheme: {{ .Values.ports.scheme }}
+              scheme: {{ .Values.ports.scheme }}
               path: /livez
               port: {{ .Values.ports.targetPort }}
             initialDelaySeconds: 300
