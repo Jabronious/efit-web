@@ -8,9 +8,24 @@ import { configs } from './configuration';
 import { ValidationPipe } from '@nestjs/common';
 import { engine } from 'express-handlebars';
 import { User } from './users/schemas/users.schema';
+import { readFileSync } from 'fs';
+import { HttpsOptions } from '@nestjs/common/interfaces/external/https-options.interface';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  let tlsOptions: HttpsOptions;
+  if (
+    configs.isDevelopment ||
+    configs.isProduction ||
+    configs.NODE_ENV === 'staging'
+  ) {
+    tlsOptions = {
+      key: readFileSync('/etc/tls/tls.key'),
+      cert: readFileSync('/etc/tls/tls.crt'),
+    };
+  }
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    httpsOptions: tlsOptions,
+  });
   const helpers = {
     userCookiePresent: (user: User): boolean => {
       return user.espn_s2 && user.swid ? true : false;
@@ -39,6 +54,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(3000);
+  await app.listen(configs.PORT);
+  console.log(`Server is running on ${await app.getUrl()}`);
 }
 bootstrap();
