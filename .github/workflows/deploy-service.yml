@@ -15,7 +15,6 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
-      ENVIRONMENT: ${{ github.base_ref == 'main' && 'prod' || github.base_ref }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,14 +33,12 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform -chdir=./terraform apply -auto-approve -no-color -input=false -var environment=$ENVIRONMENT
+        run: terraform -chdir=./terraform apply -auto-approve -no-color -input=false -var environment=${{ github.ref_name }}
 
-  build:
+  deploy-service:
     name: 'Deploy Service to AKS'
-    needs: terraform
+    needs: [terraform, docker-image]
     runs-on: ubuntu-latest
-    env:
-      ENVIRONMENT: ${{ github.base_ref == 'main' && 'prod' || github.base_ref }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -62,9 +59,76 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run OP Helm NEEDS FIXING
+      - name: Deploy Service via Helm
         run: |
-          helm upgrade -f ../helm/environments/$ENVIRONMENT.values.yaml \
+          helm upgrade -f ./helm/environments/${{ github.ref_name }}.values.yaml \
           --set azureSubId=${{ secrets.ARM_SUBSCRIPTION_ID }} \
-          --install efit-web-release-$ENVIRONMENT \
-          ../helm
+          --install efit-web-release-${{ github.ref_name }} \
+          ./helm
+
+  docker-image:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Instal Yarn
+        run: npm install --global yarn
+
+      - name: Install Packages
+        run: yarn install
+
+      - name: Yarn Build
+        run: yarn build
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and push to develop
+        uses: docker/build-push-action@v2
+        if: github.ref_name == 'develop'
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/efit-web:develop
+          build-args: node_env=development
+
+      - name: Build and push to staging
+        uses: docker/build-push-action@v2
+        if: github.ref_name == 'staging'
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/efit-web:staging
+          build-args: node_env=staging
+
+      - name: Build and push to prod
+        uses: docker/build-push-action@v2
+        if: github.ref_name == 'prod'
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/efit-web:latest
+          build-args: node_env=production

@@ -1,4 +1,4 @@
-import { cleanEnv, str, url } from 'envalid';
+import { cleanEnv, num, str, url } from 'envalid';
 
 export const configs = cleanEnv(process.env, {
   FBB_BOT_SECRET: str({ devDefault: 'change-me' }),
@@ -13,4 +13,5 @@ export const configs = cleanEnv(process.env, {
     devDefault: 'development',
   }),
   SESSION_SECRET: str({ devDefault: 'change-me' }),
+  PORT: num({ default: 3000 }),
 });
