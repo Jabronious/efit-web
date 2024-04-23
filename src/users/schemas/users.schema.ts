@@ -16,9 +16,6 @@ export class User {
 
   @Prop({ required: false })
   swid?: string;
-
-  @Prop({ required: false })
-  id?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
