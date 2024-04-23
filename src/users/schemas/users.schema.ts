@@ -16,6 +16,9 @@ export class User {
 
   @Prop({ required: false })
   swid?: string;
+
+  @Prop({ required: false })
+  discordId?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

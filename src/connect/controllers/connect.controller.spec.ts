@@ -34,7 +34,7 @@ describe('ConnectController', () => {
 
   describe('GET connect', () => {
     it('should return user object', async () => {
-      const req = { user: { id: '1' } } as Request;
+      const req = { user: { discordId: '1' } } as Request;
       const res = {} as Response;
       const result = await connectController.getConnect(req, res);
 
@@ -46,7 +46,7 @@ describe('ConnectController', () => {
     it('should update user with encrypted ESPN S2 and SWID', async () => {
       const encryptedEspnS2 = 'encryptedEspnS2';
       const encryptedSwid = 'encryptedSwid';
-      const req = { user: { id: '1' } } as Request;
+      const req = { user: { discordId: '1' } } as Request;
       const res = {} as Response;
       const connectDto = { espn_s2: encryptedEspnS2, swid: encryptedSwid };
       const result = await connectController.postConnect(connectDto, req, res);

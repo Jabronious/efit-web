@@ -1,5 +1,5 @@
 export class CreateUserDto {
-  id: string;
+  discordId: string;
 
   username: string;
 
