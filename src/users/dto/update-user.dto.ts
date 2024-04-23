@@ -1,5 +1,5 @@
 export class UpdateUserDto {
-  id: string;
+  discordId: string;
 
   username?: string;
 

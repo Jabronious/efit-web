@@ -13,13 +13,13 @@ export class AuthService {
     let user = await this.usersService.findByDiscordId(discordId);
     if (user) {
       user = await this.usersService.update({
-        id: discordId,
+        discordId: discordId,
       });
       return user;
     }
 
     return this.usersService.create({
-      id: discordId,
+      discordId: discordId,
       username: username,
       discriminator: discriminator,
     });

@@ -14,18 +14,18 @@ describe('UsersService', () => {
   const mockUser = (
     username = 'Ventus',
     discriminator = 'a uuid',
-    id = uuidv4(),
+    discordId = uuidv4(),
   ): User => ({
     username,
     discriminator,
-    id,
+    discordId,
   });
 
   // still lazy, but this time using an object instead of multiple parameters
   const mockUserDoc = (mock?: Partial<User>): Partial<UserDocument> => ({
     username: mock?.username || 'Ventus',
     discriminator: mock?.discriminator || 'dsic',
-    id: mock?.id || uuidv4(),
+    discordId: mock?.discordId || uuidv4(),
   });
 
   beforeEach(async () => {
@@ -65,7 +65,7 @@ describe('UsersService', () => {
       const user = mockUser();
       jest
         .spyOn(userModel, 'create')
-        .mockImplementationOnce(() => Promise.resolve(user));
+        .mockImplementationOnce(() => Promise.resolve(user as any));
       const newUser = await service.create(user as CreateUserDto);
       expect(newUser).toEqual(user);
     });
@@ -101,7 +101,7 @@ describe('UsersService', () => {
       jest.spyOn(userModel, 'findById').mockReturnValue({
         exec: jest.fn().mockResolvedValueOnce(user),
       } as any);
-      const findById = await service.findById(user.id);
+      const findById = await service.findById(user.discordId);
       expect(findById).toEqual(user);
     });
   });
@@ -112,7 +112,7 @@ describe('UsersService', () => {
       jest.spyOn(userModel, 'findOne').mockReturnValue({
         lean: jest.fn().mockResolvedValueOnce(user),
       } as any);
-      const findByDiscordId = await service.findByDiscordId(user.id);
+      const findByDiscordId = await service.findByDiscordId(user.discordId);
       expect(findByDiscordId).toEqual(user);
     });
   });
