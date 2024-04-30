@@ -13,7 +13,7 @@ terraform {
   backend "azurerm" {
     storage_account_name = "tfstate13041"
     container_name       = "tfstate"
-    key                  = "efit-backend.tfstate"
+    key                  = "efit-backend-${var.environment}.tfstate"
   }
 }
 
