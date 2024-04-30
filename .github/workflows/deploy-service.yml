@@ -31,6 +31,10 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         run: terraform -chdir=./terraform init -upgrade
 
+      - name: Terraform Workspace
+        id: workspace
+        run: terraform workspace select ${{ github.ref_name }}
+
       - name: Terraform Apply
         id: apply
         run: terraform -chdir=./terraform apply -auto-approve -no-color -input=false -var environment=${{ github.ref_name }}
