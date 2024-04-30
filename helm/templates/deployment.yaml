@@ -24,7 +24,7 @@ spec:
           readinessProbe:
             httpGet:
               scheme: {{ .Values.ports.scheme }}
-              path: /readyz
+              path: /health/readyz
               port: {{ .Values.ports.targetPort }}
             initialDelaySeconds: 15
             periodSeconds: 10
@@ -33,7 +33,7 @@ spec:
           livenessProbe:
             httpGet:
               scheme: {{ .Values.ports.scheme }}
-              path: /livez
+              path: /health/livez
               port: {{ .Values.ports.targetPort }}
             initialDelaySeconds: 300
             periodSeconds: 60

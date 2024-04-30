@@ -1,4 +1,4 @@
-import { Controller, Get, Redirect } from '@nestjs/common';
+import { Controller, Get, Redirect, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -12,15 +12,5 @@ export class AppController {
       url: '/connect',
       statusCode: 302,
     };
-  }
-
-  @Get('livez')
-  getLivez(): string {
-    return this.appService.getHello();
-  }
-
-  @Get('readyz')
-  getReadyz(): string {
-    return this.appService.getHello();
   }
 }
