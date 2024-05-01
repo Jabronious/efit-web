@@ -29,11 +29,11 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        run: terraform -chdir=./terraform init -upgrade
+        run: terraform -chdir=./terraform init
 
       - name: Terraform Workspace
         id: workspace
-        run: terraform workspace select ${{ github.ref_name }}
+        run: terraform -chdir=./terraform workspace select ${{ github.ref_name }}
 
       - name: Terraform Apply
         id: apply
