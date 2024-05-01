@@ -46,7 +46,7 @@ resource "azurerm_public_ip" "lb-pip" {
 resource "azurerm_dns_a_record" "default" {
   name                = var.subdomain_list[terraform.workspace]
   zone_name           = data.azurerm_dns_zone.default.name
-  resource_group_name = data.azurerm_dns_zone.default.name
+  resource_group_name = data.azurerm_dns_zone.default.resource_group_name
   ttl                 = 3600
   target_resource_id  = azurerm_public_ip.lb-pip.id
 }
