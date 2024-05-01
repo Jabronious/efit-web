@@ -12,15 +12,6 @@ variable "location" {
   }
 }
 
-variable "environment" {
-  default = "develop"
-  validation {
-    condition     = contains(["develop", "staging", "prod"], var.environment)
-    error_message = "Value must be develop, staging, or prod"
-
-  }
-}
-
 variable "tags" {
   description = "Tags for your resources"
   default = {
