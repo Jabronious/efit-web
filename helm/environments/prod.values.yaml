@@ -9,7 +9,6 @@ secretEnv: _PROD
 
 letsencrypt:
   server: https://acme-v02.api.letsencrypt.org/directory
-  env: letsencrypt-prod
 
 ports:
   scheme: HTTPS
