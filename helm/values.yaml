@@ -22,7 +22,7 @@ createNamespace: false
 
 secretEnv:
 subdomain:
+azureSubId:
 
 letsencrypt:
   server: https://acme-staging-v02.api.letsencrypt.org/directory
-  env: letsencrypt-staging

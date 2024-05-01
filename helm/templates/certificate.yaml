@@ -15,5 +15,5 @@ spec:
     - key encipherment
     - server auth
   issuerRef:
-    name: {{ .Values.letsencrypt.env }}
+    name: letsencrypt-{{ .Values.env }}
     kind: ClusterIssuer
