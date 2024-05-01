@@ -2,7 +2,7 @@ name: EFIT BACKEND UNIT TESTING
 
 on:
   pull_request:
-    branches: [main, staging, develop]
+    branches: [prod, staging, develop]
   workflow_dispatch:
 
 jobs:
