@@ -37,7 +37,7 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform -chdir=./terraform apply -auto-approve -no-color -input=false -var environment=${{ github.ref_name }}
+        run: terraform -chdir=./terraform apply -auto-approve -no-color -input=false
 
   deploy-service:
     name: 'Deploy Service to AKS'
