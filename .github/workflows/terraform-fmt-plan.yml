@@ -2,6 +2,7 @@ name: Terraform Fmt and Plan
 
 on:
   pull_request:
+    branches: [prod, staging, develop]
     paths:
       - terraform/**
 
@@ -22,10 +23,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3.1.0
 
-      - name: Terraform Workspace
-        id: workspace
-        run: terraform -chdir=./terraform workspace select ${{ github.base_ref }}
-
       - name: Terraform Format
         id: fmt
         run: terraform -chdir=./terraform fmt -check
@@ -38,6 +35,10 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         run: terraform -chdir=./terraform init
+
+      - name: Terraform Workspace
+        id: workspace
+        run: terraform -chdir=./terraform workspace select ${{ github.base_ref }}
 
       - name: Terraform Validate
         id: validate
