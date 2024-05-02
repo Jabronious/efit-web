@@ -4,7 +4,6 @@ metadata:
   name: {{ .Values.appName }}
   namespace: {{ .Values.appName }}-{{.Values.env}}
   annotations:
-	#   This might need to change to the RG for the dns zone or maybe the aks
     service.beta.kubernetes.io/azure-load-balancer-resource-group: {{ .Values.appName }}-{{ .Values.env }}-rg
     service.beta.kubernetes.io/azure-pip-name: {{ .Values.appName }}-{{ .Values.env }}-pip
   labels:
