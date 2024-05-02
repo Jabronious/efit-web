@@ -50,3 +50,42 @@
 	border-image: initial;
 	font-family: 'Open Sans', sans-serif;
 }
+
+.container {
+	width: 80%;
+	margin: 20px auto;
+}
+
+.instructions-container {
+	border: 1px solid #ccc;
+	margin-bottom: 20px;
+}
+
+.instructions {
+	display: none;
+	/* Initially hidden */
+	overflow: hidden;
+}
+
+.step {
+	margin-bottom: 20px;
+}
+
+.toggle-btn {
+	cursor: pointer;
+	padding: 10px;
+	background-color: #f0f0f0;
+	border-bottom: 1px solid #ccc;
+	text-align: center;
+}
+
+.step img {
+	max-width: 35%;
+	display: block;
+	margin: 0 auto;
+}
+
+#chrome-ext {
+	margin: 0;
+	padding: 5px 10px;
+}

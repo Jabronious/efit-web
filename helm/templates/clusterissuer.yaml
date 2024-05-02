@@ -13,6 +13,6 @@ spec:
       - dns01:
           azureDNS:
             subscriptionID: {{ .Values.azureSubId }}
-            resourceGroupName: {{ .Values.appName }}-{{ .Values.env }}-rg
+            resourceGroupName: {{ .Values.dnsZoneRG }}
             hostedZoneName: {{ .Values.domainName }}
             environment: AzurePublicCloud
