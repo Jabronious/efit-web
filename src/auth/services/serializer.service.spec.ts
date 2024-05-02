@@ -28,7 +28,7 @@ describe('SerializerService', () => {
     it('should call done with the user object', () => {
       const doneFn = jest.fn();
       const user: User = {
-        id: '1',
+        discordId: '1',
         discriminator: '',
         username: '',
       };
@@ -43,12 +43,12 @@ describe('SerializerService', () => {
     it('should call done with the user object when user is found', async () => {
       const doneFn = jest.fn();
       const sessionUser: User = {
-        id: '1',
+        discordId: '1',
         username: 'John',
         discriminator: '',
       };
       const user: User = {
-        id: '1',
+        discordId: '1',
         username: 'John',
         discriminator: '123456789',
       };
@@ -57,14 +57,16 @@ describe('SerializerService', () => {
 
       await serializerService.deserializeUser(sessionUser, doneFn);
 
-      expect(usersService.findByDiscordId).toHaveBeenCalledWith(sessionUser.id);
+      expect(usersService.findByDiscordId).toHaveBeenCalledWith(
+        sessionUser.discordId,
+      );
       expect(doneFn).toHaveBeenCalledWith(null, user);
     });
 
     it('should call done with null when user is not found', async () => {
       const doneFn = jest.fn();
       const sessionUser: User = {
-        id: '1',
+        discordId: '1',
         username: 'John',
         discriminator: '',
       };
@@ -73,7 +75,9 @@ describe('SerializerService', () => {
 
       await serializerService.deserializeUser(sessionUser, doneFn);
 
-      expect(usersService.findByDiscordId).toHaveBeenCalledWith(sessionUser.id);
+      expect(usersService.findByDiscordId).toHaveBeenCalledWith(
+        sessionUser.discordId,
+      );
       expect(doneFn).toHaveBeenCalledWith(null, null);
     });
   });

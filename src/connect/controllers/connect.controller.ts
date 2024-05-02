@@ -6,7 +6,6 @@ import {
   Render,
   Req,
   Res,
-  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
@@ -28,7 +27,7 @@ export class ConnectController extends ParentController {
   @Get()
   @Render('connect/index')
   async getConnect(@Req() req: Request, @Res() _res: Response) {
-    const user = await this.userSerivce.findByDiscordId(req.user.id);
+    const user = await this.userSerivce.findByDiscordId(req.user.discordId);
     return { user };
   }
 
@@ -41,7 +40,7 @@ export class ConnectController extends ParentController {
     @Res() _res: Response,
   ) {
     const user = await this.userSerivce.update({
-      id: req.user.id,
+      discordId: req.user.discordId,
       espn_s2: this.connectService.encrypt(connectDto.espn_s2),
       swid: this.connectService.encrypt(connectDto.swid),
     });

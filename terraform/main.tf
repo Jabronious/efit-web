@@ -18,7 +18,7 @@ terraform {
 }
 
 resource "azurerm_resource_group" "default" {
-  name     = "${var.prefix}-${var.environment}-rg"
+  name     = "${var.prefix}-${terraform.workspace}-rg"
   location = var.location
 
   tags = var.tags
@@ -30,7 +30,7 @@ data "azurerm_kubernetes_cluster" "aks" {
 }
 
 resource "azurerm_public_ip" "lb-pip" {
-  name                = "${var.prefix}-${var.environment}-pip"
+  name                = "${var.prefix}-${terraform.workspace}-pip"
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
   allocation_method   = "Static"
@@ -43,7 +43,7 @@ resource "azurerm_dns_zone" "default" {
 }
 
 resource "azurerm_dns_a_record" "default" {
-  name                = var.subdomain_list[var.environment]
+  name                = var.subdomain_list[terraform.workspace]
   zone_name           = azurerm_dns_zone.default.name
   resource_group_name = azurerm_resource_group.default.name
   ttl                 = 3600
@@ -65,6 +65,7 @@ resource "azurerm_role_assignment" "dns_contributor" {
 output "fqdn" {
   value = azurerm_dns_a_record.default.fqdn
 }
+
 output "ip_address" {
   value = azurerm_public_ip.lb-pip.ip_address
 }
