@@ -96,5 +96,16 @@
       "configuration.ts",
       "main.ts"
     ]
+  },
+  "resolutions": {
+    "jest/@babel/traverse": "^7.23.2",
+    "jest/semver": "^7.6.2",
+    "ts-node/json5": "^2.2.2",
+    "eslint/optionator/word-wrap": ">=1.2.4",
+    "supertest/superagent/cookiejar": ">=2.1.4",
+    "@nestjs/cli/webpack": ">=5.76.0",
+    "@nestjs/axios/axios": ">=1.6.0",
+    "@nestjs/platform-express/express": ">=4.19.2",
+    "@nestjs/axios/axios/follow-redirects": ">=1.15.6"
   }
 }
