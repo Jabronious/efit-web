@@ -29,6 +29,11 @@ data "azurerm_kubernetes_cluster" "aks" {
   resource_group_name = "efit-aks-rg"
 }
 
+data "azurerm_dns_zone" "default" {
+  name                = var.domain_label
+  resource_group_name = "efit-dns-zone-rg"
+}
+
 resource "azurerm_public_ip" "lb-pip" {
   name                = "${var.prefix}-${terraform.workspace}-pip"
   location            = azurerm_resource_group.default.location
@@ -37,15 +42,10 @@ resource "azurerm_public_ip" "lb-pip" {
   sku                 = "Standard"
 }
 
-resource "azurerm_dns_zone" "default" {
-  name                = var.domain_label
-  resource_group_name = azurerm_resource_group.default.name
-}
-
 resource "azurerm_dns_a_record" "default" {
   name                = var.subdomain_list[terraform.workspace]
-  zone_name           = azurerm_dns_zone.default.name
-  resource_group_name = azurerm_resource_group.default.name
+  zone_name           = data.azurerm_dns_zone.default.name
+  resource_group_name = data.azurerm_dns_zone.default.resource_group_name
   ttl                 = 3600
   target_resource_id  = azurerm_public_ip.lb-pip.id
 }
@@ -56,36 +56,3 @@ resource "azurerm_role_assignment" "aks_network_contributor" {
   scope                = azurerm_resource_group.default.id
 }
 
-resource "azurerm_role_assignment" "dns_contributor" {
-  scope                = azurerm_dns_zone.default.id
-  role_definition_name = "DNS Zone Contributor"
-  principal_id         = data.azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
-}
-
-output "fqdn" {
-  value = azurerm_dns_a_record.default.fqdn
-}
-
-output "ip_address" {
-  value = azurerm_public_ip.lb-pip.ip_address
-}
-
-output "aks_network_contributor_map" {
-  value = tomap({
-    name         = azurerm_role_assignment.aks_network_contributor.name
-    principal_id = azurerm_role_assignment.aks_network_contributor.principal_id
-    scope        = azurerm_role_assignment.aks_network_contributor.scope
-  })
-}
-
-output "dns_contributor_map" {
-  value = tomap({
-    name         = azurerm_role_assignment.dns_contributor.name
-    principal_id = azurerm_role_assignment.dns_contributor.principal_id
-    scope        = azurerm_role_assignment.dns_contributor.scope
-  })
-}
-
-output "ns_servers" {
-  value = azurerm_dns_zone.default.name_servers
-}

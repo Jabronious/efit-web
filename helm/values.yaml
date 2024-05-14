@@ -24,5 +24,7 @@ secretEnv:
 subdomain:
 azureSubId:
 
+dnsZoneRG: efit-dns-zone-rg
+
 letsencrypt:
   server: https://acme-staging-v02.api.letsencrypt.org/directory

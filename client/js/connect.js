@@ -11,4 +11,8 @@ $(document).ready(() => {
     $('input').val('*****');
     $('input').prop('readonly', true);
   });
+
+  $('.toggle-btn').click(function () {
+    $('#instructions').slideToggle();
+  });
 });

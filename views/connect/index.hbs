@@ -30,4 +30,33 @@
 			<a href='#' {{#if (userCookiePresent user)}} style="display: none;" {{/if}} class="cancel-button">Cancel</a>
 		</div>
 	</form>
+	<div class="container">
+        <h1>How To Obtain Cookies</h1>
+        <div class="instructions-container">
+            <div class="toggle-btn">Click to Toggle Guide</div>
+            <div class="instructions" id="instructions">
+				<div class="step">
+					<p>The easiest way to locate the necessary values is using <a id="chrome-ext" target="_blank" rel="noopener noreferrer" href="https://chromewebstore.google.com/detail/espn-private-league-key-a/bakealnpgdijapoiibbgdbogehhmaopn">this</a> chrome extension</p>
+				</div>
+                <div class="step">
+                    <h2>Step 1</h2>
+                    <p>Log into ESPN Fantasy Baseball</p>
+                </div>
+                <div class="step">
+                    <h2>Step 2</h2>
+                    <p>Right click anywhere on screen and select "Inspect"</p>
+                    <img src="images/inspect-img.png" alt="Step 2">
+                </div>
+				<div class="step">
+                    <h2>Step 3</h2>
+                    <p>Click "Application" and on the left-hand side find cookies. You will need to find the one labeled: "https://www.espn.com"</p>
+                    <img src="images/espn-cookies-img.png" alt="Step 2">
+                </div>
+				<div class="step">
+                    <h2>Step 4</h2>
+                    <p>Find the cookies on the right-hand side of the menu labeled "SWID" and "espn_2" and use these for the fields above.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
