@@ -60,6 +60,26 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.appName }}-secret
                   key: SESSION_SECRET
+            - name: AZURE_TENANT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: azure-tenant-id
+                  key: credential
+            - name: AZURE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: azure-client-id
+                  key: credential
+            - name: AZURE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: azure-client-secret
+                  key: credential
+            - name: KEY_VAULT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: key-vault-url
+                  key: credential
             - name: TLS_CERT
               value: /etc/tls/tls.crt
             - name: TLS_KEY

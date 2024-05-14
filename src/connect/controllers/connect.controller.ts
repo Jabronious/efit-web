@@ -41,8 +41,8 @@ export class ConnectController extends ParentController {
   ) {
     const user = await this.userSerivce.update({
       discordId: req.user.discordId,
-      espn_s2: this.connectService.encrypt(connectDto.espn_s2),
-      swid: this.connectService.encrypt(connectDto.swid),
+      espn_s2: await this.connectService.encrypt(connectDto.espn_s2),
+      swid: await this.connectService.encrypt(connectDto.swid),
     });
     return { user };
   }
