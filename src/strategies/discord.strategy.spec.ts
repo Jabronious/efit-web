@@ -36,7 +36,7 @@ describe('DiscordStrategy', () => {
     it('should validate user and return user object', async () => {
       const accessToken = 'access_token';
       const refreshToken = 'refresh_token';
-      const profile: Profile = {
+      const profile: Partial<Profile> = {
         id: '12345',
         username: 'testuser',
         discriminator: '1234',
@@ -56,7 +56,7 @@ describe('DiscordStrategy', () => {
       const result = await discordStrategy.validate(
         accessToken,
         refreshToken,
-        profile,
+        profile as Profile,
       );
 
       expect(authService.validateUser).toHaveBeenCalledWith(profile);
@@ -68,7 +68,7 @@ describe('DiscordStrategy', () => {
 
       const accessToken = 'access_token';
       const refreshToken = 'refresh_token';
-      const profile: Profile = {
+      const profile: Partial<Profile> = {
         id: '12345',
         username: 'testuser',
         discriminator: '1234',
@@ -86,7 +86,7 @@ describe('DiscordStrategy', () => {
       };
 
       await expect(
-        discordStrategy.validate(accessToken, refreshToken, profile),
+        discordStrategy.validate(accessToken, refreshToken, profile as Profile),
       ).rejects.toThrow(UnauthorizedException);
     });
   });

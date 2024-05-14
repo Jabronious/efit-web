@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { EncryptService } from 'src/encrypt/services/encrypt.serivce';
+import { EncryptService } from '../../encrypt/services/encrypt.serivce';
 
 @Injectable()
 export class ConnectService {
