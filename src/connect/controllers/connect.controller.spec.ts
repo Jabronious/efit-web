@@ -3,6 +3,7 @@ import { ConnectController } from './connect.controller';
 import { UsersService } from '../../users/services/users.service';
 import { ConnectService } from '../services/connect.service';
 import { Request, Response } from 'express';
+import { EncryptService } from '../../encrypt/services/encrypt.serivce';
 
 describe('ConnectController', () => {
   let connectController: ConnectController;
@@ -18,6 +19,12 @@ describe('ConnectController', () => {
       controllers: [ConnectController],
       providers: [
         ConnectService,
+        {
+          provide: EncryptService,
+          useValue: {
+            encrypt: jest.fn().mockResolvedValue('Its encrypted'),
+          },
+        },
         {
           provide: UsersService,
           useValue: {

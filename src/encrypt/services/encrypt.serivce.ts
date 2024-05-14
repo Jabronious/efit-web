@@ -5,7 +5,7 @@ import {
   KeyVaultKey,
 } from '@azure/keyvault-keys';
 import { Injectable } from '@nestjs/common';
-import { configs } from 'src/configuration';
+import { configs } from '../../configuration';
 
 @Injectable()
 export class EncryptService {
