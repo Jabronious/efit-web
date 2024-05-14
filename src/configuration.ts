@@ -14,4 +14,9 @@ export const configs = cleanEnv(process.env, {
   }),
   SESSION_SECRET: str({ devDefault: 'change-me' }),
   PORT: num({ default: 3000 }),
+  AZURE_TENANT_ID: str(),
+  AZURE_CLIENT_ID: str(),
+  AZURE_CLIENT_SECRET: str(),
+  KEY_VAULT_URL: str(),
+  KEY_NAME: str({ default: 'espn-discord-bot-key' }),
 });
